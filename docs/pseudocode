@@ -1,0 +1,192 @@
+# Project 3 – Pseudocode
+**Team:** SuperCoolTeam | **Course:** CS 2430-501 | **Project 3:** Pseudocode
+**Team Members:** Tayler Covington-Holler, Chris Salcedo Cardenas, Cameron Dickinson, Maxwell Jardine
+
+---
+
+## Data Structures
+
+```
+EXPERIMENT:
+    id           → integer
+    name         → string
+    weight (kg)  → integer
+    rating       → integer
+    ratio        → float = rating / weight
+
+SOLUTION:
+    chosenExperiments → list of Experiment
+    totalWeight       → integer
+    totalRating       → integer
+    strategyName      → string
+```
+
+---
+
+## Main
+
+*n = number of experiments (12), W = weight limit (700)*
+
+```
+MAIN:
+    experiments ← LOAD_EXPERIMENTS()
+
+    // Part 1 – Greedy Strategies
+    result1 ← GREEDY_HIGHEST_RATING(experiments, 700)
+    result2 ← GREEDY_LIGHTEST_FIRST(experiments, 700)
+    result3 ← GREEDY_BEST_RATIO(experiments, 700)
+
+    // Part 2 – Brute Force
+    topThree ← BRUTE_FORCE(experiments, 700)
+    optimal  ← topThree[0]
+
+    // Part 4 – Dynamic Programming (Extra Credit)
+    dpResult ← DYNAMIC_PROGRAMMING(experiments, 700)
+    (comes before comparison so it can be included in comparison results)
+
+    // Part 3 – Comparison
+    PRINT_COMPARISON(result1, result2, result3, optimal, dpResult)
+```
+
+---
+
+## Part 1 – Greedy Strategies
+
+All three greedy strategies share the same selection loop. They differ only in sort order.
+
+```
+GREEDY_SELECT(experiments sorted by some criterion, weightLimit):
+    chosen       ← empty list
+    totalWeight  ← 0
+    totalRating  ← 0
+
+    FOR each experiment e in sorted order:
+        IF totalWeight + e.weight ≤ weightLimit:
+            ADD e to chosen
+            totalWeight ← totalWeight + e.weight
+            totalRating ← totalRating + e.rating
+        // Otherwise skip — greedy never revisits
+
+    RETURN Solution(chosen, totalWeight, totalRating)
+```
+
+```
+GREEDY_HIGHEST_RATING(experiments, weightLimit):
+    sorted ← experiments sorted by rating DESCENDING
+    RETURN GREEDY_SELECT(sorted, weightLimit)
+
+GREEDY_LIGHTEST_FIRST(experiments, weightLimit):
+    sorted ← experiments sorted by weight ASCENDING
+    RETURN GREEDY_SELECT(sorted, weightLimit)
+
+GREEDY_BEST_RATIO(experiments, weightLimit):
+    sorted ← experiments sorted by (rating / weight) DESCENDING
+    RETURN GREEDY_SELECT(sorted, weightLimit)
+```
+
+---
+
+## Part 2 – Brute Force Exhaustive Search
+
+```
+BRUTE_FORCE(experiments, weightLimit):
+    validSolutions ← empty list
+    BRUTE_FORCE_RECURSIVE(experiments, 0, empty list, weightLimit, validSolutions)
+    SORT validSolutions by totalRating DESCENDING
+    RETURN first 3 elements of validSolutions   // index 0 = optimal
+
+
+BRUTE_FORCE_RECURSIVE(experiments, index, currentSubset, weightLimit, validSolutions):
+
+    // Base case: every experiment has been considered
+    IF index == length of experiments:
+        totalWeight ← sum of weights in currentSubset
+        totalRating ← sum of ratings in currentSubset
+        IF totalWeight ≤ weightLimit AND currentSubset is not empty:
+            ADD Solution(currentSubset, totalWeight, totalRating) to validSolutions
+        RETURN
+
+    // Option A: skip experiment at current index
+    BRUTE_FORCE_RECURSIVE(experiments, index + 1, currentSubset, weightLimit, validSolutions)
+
+    // Option B: include experiment at current index
+    ADD experiments[index] to currentSubset
+    BRUTE_FORCE_RECURSIVE(experiments, index + 1, currentSubset, weightLimit, validSolutions)
+    REMOVE experiments[index] from currentSubset  // backtrack
+```
+
+---
+
+## Part 3 – Comparison Summary
+
+```
+PRINT_COMPARISON(greedyRating, greedyWeight, greedyRatio, optimal, dpResult):
+    optimalRating ← optimal.totalRating
+
+    PRINT table with columns: Strategy | Weight | Rating
+    PRINT row for each of: greedyRating, greedyWeight, greedyRatio, optimal, dpResult
+
+    FOR each strategy result s in [greedyRating, greedyWeight, greedyRatio, dpResult]:
+        IF s.totalRating == optimalRating:
+            PRINT s.strategyName + " → MATCHES OPTIMAL"
+        ELSE:
+            PRINT s.strategyName + " → Did NOT match optimal"
+```
+
+---
+
+## Part 4 – Dynamic Programming (extra credit)
+
+```
+DYNAMIC_PROGRAMMING(experiments, weightLimit):
+    n      ← length of experiments
+    dp     ← 2D table of size (n+1) × (weightLimit+1), all zeros
+
+    // dp[i][w] = best rating using first i experiments with capacity w
+
+    // Base cases: row 0 and column 0 are already 0
+
+    FOR i FROM 1 TO n:
+        exp ← experiments[i - 1]
+        FOR w FROM 0 TO weightLimit:
+
+            // Option A: skip experiment i
+            dp[i][w] ← dp[i-1][w]
+
+            // Option B: include experiment i (only if it fits)
+            IF exp.weight ≤ w:
+                withItem ← dp[i-1][w - exp.weight] + exp.rating
+                IF withItem > dp[i][w]:
+                    dp[i][w] ← withItem
+
+    // optimalRating ← dp[n][weightLimit]
+
+    // Traceback to find which experiments were chosen
+    chosen ← TRACEBACK(dp, experiments, weightLimit)
+
+    RETURN Solution(chosen, sum of weights in chosen, optimalRating)
+
+
+TRACEBACK(dp, experiments, weightLimit):
+    chosen ← empty list
+    w      ← weightLimit
+
+    FOR i FROM n DOWN TO 1:
+        IF dp[i][w] ≠ dp[i-1][w]:          // experiment i included
+            ADD experiments[i-1] to front of chosen
+            w ← w - experiments[i-1].weight // reduce remaining capacity
+
+    RETURN chosen
+```
+
+---
+
+## Complexity Summary
+
+| Algorithm | Time Complexity | Space Complexity | Finds Optimal? |
+|-----------|-----------------|------------------|----------------|
+| Greedy (any) | O(n log n) | O(n) | Not guaranteed |
+| Brute Force | O(2ⁿ × n) | O(2ⁿ) | Yes |
+| Dynamic Programming | O(n × W) | O(n × W) | Yes |
+
+
