@@ -75,7 +75,17 @@ public class Main {
         System.out.println("                  PART 1: GREEDY STRATEGIES");
         System.out.println("---------------------------------------------------------------------");
 
-        /** TODO */
+        Greedy greedy = new Greedy(experiments, WEIGHT_LIMIT);
+
+        // Run all three greedy strategies and store results
+        Solution greedyRating = greedy.solveByHighestRating();
+        Solution greedyWeight = greedy.solveByLightestFirst();
+        Solution greedyRatio  = greedy.solveByBestRatio();
+
+        // Display each result
+        greedyRating.display();
+        greedyWeight.display();
+        greedyRatio.display();
 
         
         
@@ -83,7 +93,7 @@ public class Main {
          * PART 2: BRUTE FORCE
          */
         System.out.println("---------------------------------------------------------------------");
-        System.out.println("             PART 2: BRUTE FORCE EXHAUSTIVE SEARCH");
+        System.out.println("             PART 2: BRUTE FORCE / EXHAUSTIVE SEARCH");
         System.out.println("                    (2^12 = 4,096 subsets)");
         System.out.println("---------------------------------------------------------------------");
 
