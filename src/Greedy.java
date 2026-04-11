@@ -74,7 +74,7 @@ public class Greedy {
 	            sorted.set(bestIndex, temp);
 	        }
 	        
-	        // Selection Logic
+	      // Selection Logic
 	        List<Experiment> chosen = new ArrayList<>();
 	        int currentWeight = 0;
 	        int currentRating = 0;
@@ -108,7 +108,8 @@ public class Greedy {
 	        for (int i = 0; i < sorted.size() - 1; i++) {
 	            int bestIndex = i;
 	            for (int j = i + 1; j < sorted.size(); j++) {
-	                if (sorted.get(j).rating > sorted.get(bestIndex).weight) {
+	            	// replaced > with < for lightest
+	                if (sorted.get(j).weight < sorted.get(bestIndex).weight) {
 	                    bestIndex = j;
 	                }
 	            }
