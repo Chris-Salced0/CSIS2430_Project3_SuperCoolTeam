@@ -51,16 +51,17 @@ public class Main {
         List<Experiment> experiments = loadExperiments();
 
         // Print program header
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println("              The Knapsack Problem by SuperCoolTeam");
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println("                       Weight Limit: 700 kg");
-        System.out.println("                     Experiments Available: 12");
-        System.out.println("---------------------------------------------------------------------");
+
+        System.out.println("=======================================================================================");
+        System.out.println("                        The Knapsack Problem by SuperCoolTeam");
+        System.out.println("=======================================================================================");
+        System.out.println("                                Weight Limit: 700 kg");
+        System.out.println("                              Experiments Available: 12");
+        System.out.println("---------------------------------------------------------------------------------------");
 
         // Print the full experiment list
         System.out.println("All Available Experiments:");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------");
         for (Experiment e : experiments) {
             System.out.println("  " + e);
         }
@@ -71,9 +72,9 @@ public class Main {
         /*
          * PART 1: GREEDY STRATEGIES
          */
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println("                  PART 1: GREEDY STRATEGIES");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("=======================================================================================");
+        System.out.println("                           PART 1: GREEDY STRATEGIES");
+        System.out.println("=======================================================================================");
 
         Greedy greedy = new Greedy(experiments, WEIGHT_LIMIT);
 
@@ -92,24 +93,34 @@ public class Main {
         /*
          * PART 2: BRUTE FORCE
          */
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println("             PART 2: BRUTE FORCE / EXHAUSTIVE SEARCH");
-        System.out.println("                    (2^12 = 4,096 subsets)");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("=======================================================================================");        
+        System.out.println("                       PART 2: BRUTE FORCE EXHAUSTIVE SEARCH");
+        System.out.println("                              (2^12 = 4,096 subsets)");
+        System.out.println("=======================================================================================");
 
-        /** TODO */
+        BruteForce bruteForce = new BruteForce(experiments, WEIGHT_LIMIT);
+        
+        List<Solution> bruteTopThree = bruteForce.solveTopThree();
+        
+        for(int i = 0; i < 3; i++) {
+        	bruteTopThree.get(i).display();
+        }
+        
+        // Establishes the first solution as "optimal"
+        Solution optimal = bruteTopThree.get(0);
+        
 
         
         
-        /* 
+        /** 
          * PART 4 – Dynamic Programming (extra credit)
          * (before Part 3 so the DP result is available for comparison)
-        */
+        
         System.out.println("---------------------------------------------------------------------");
         System.out.println("           PART 4: DYNAMIC PROGRAMMING (Extra Credit)");
         System.out.println("---------------------------------------------------------------------");
 
-        /** TODO */
+        /** TODO **/
         
         
         
@@ -117,13 +128,18 @@ public class Main {
         /*
          * PART 3 – Comparison Summary (intended for the report)
          */
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println("                    PART 3: COMPARISON SUMMARY");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("=======================================================================================");
+        System.out.println("                            PART 3: COMPARISON SUMMARY");
+        System.out.println("=======================================================================================");
 
-        /** TODO */
+        ComparisonReport report = new ComparisonReport(
+                greedyRating,  // Strategy 1 result
+                greedyWeight,  // Strategy 2 result
+                greedyRatio,   // Strategy 3 result
+                optimal     // Brute-force optimal (reference)
+        );
 
-        //report.printSummary();
+        report.printSummary();
     }
 
     /**
