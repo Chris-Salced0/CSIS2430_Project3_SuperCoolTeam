@@ -27,7 +27,6 @@ public class ComparisonReport {
     private Solution greedyWeightResult; // greedy - lightest first
     private Solution greedyRatioResult;  // greedy - best ratio first 
     private Solution optimalResult;      // brute-force search (optimal)
-    private Solution dpResult;           // dynamic programming
 
     /**
      * Constructs a ComparisonReport with all strategy results.
@@ -36,15 +35,13 @@ public class ComparisonReport {
      * @param greedyWeight
      * @param greedyRatio
      * @param optimal
-     * @param dp
      */
     public ComparisonReport(Solution greedyRating, Solution greedyWeight,
-                            Solution greedyRatio) {
+                            Solution greedyRatio, Solution optimal) {
         this.greedyRatingResult = greedyRating;
         this.greedyWeightResult = greedyWeight;
         this.greedyRatioResult  = greedyRatio;
-        //this.optimalResult      = optimal;
-        //this.dpResult           = dp;
+        this.optimalResult      = optimal;
     }
 
     /**
@@ -61,35 +58,34 @@ public class ComparisonReport {
     public void printSummary() {
         // Table Header
         System.out.printf("%-42s   | %8s | %6s%n", "Strategy", "Weight", "Rating");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------");
 
         // Table Rows
         printRow(greedyRatingResult);
         printRow(greedyWeightResult);
         printRow(greedyRatioResult);
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------");
         printRow(optimalResult);
-        printRow(dpResult);
 
         // Brute Force Optimal Rating
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println("Brute-Force Optimal Rating: " + optimalResult.totalRating);
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println();
         System.out.println();
 
         // Result Section
+        System.out.println("=======================================================================================");
         System.out.println("Optimal or Not Optimal?");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------");
         printResult(greedyRatingResult);
         printResult(greedyWeightResult);
         printResult(greedyRatioResult);
-        //printResult(dpResult);
 
-        System.out.println("=====================================================================");
+        System.out.println("=======================================================================================");
         System.out.println();
     }
 
     /**
-     * Helper method that prints a row in the comparison table for the solution.
+     * Helper method that prints a single row in the comparison table for the solution.
      *
      * @param s Solution
      */
@@ -120,6 +116,6 @@ public class ComparisonReport {
                 : "X  Did NOT match optimal (rating: " + s.totalRating
                   + " vs optimal: " + optimalResult.totalRating + ")";
 
-        System.out.printf("  %-42s → %s%n", s.strategyName, result);
+        System.out.printf("  %-30s → %s%n", s.strategyName, result);
     }
 }
