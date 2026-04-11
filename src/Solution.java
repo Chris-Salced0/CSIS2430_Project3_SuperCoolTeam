@@ -62,17 +62,17 @@ public class Solution {
     public void display() {
         System.out.println("  Strategy: " + strategyName);
         System.out.println("  Experiments chosen: " + chosenExperiments.size());
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------");
 
         for (Experiment e : chosenExperiments) {
             System.out.println("  " + e);
         }
 
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------");
         System.out.printf("  Total Weight: %d kg   |   Total Rating: %d%n",
                 totalWeight, totalRating);
         System.out.println();
-        System.out.println("*********************************************************************");
+        System.out.println("***************************************************************************************");
         System.out.println();
     }
 }
