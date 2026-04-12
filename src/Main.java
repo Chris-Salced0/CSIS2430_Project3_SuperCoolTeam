@@ -151,18 +151,18 @@ public class Main {
         List<Experiment> experiments = new ArrayList<>();
 
         //                              ID        Name                         Weight  Rating
-        experiments.add(new Experiment(  1,  "Cloud Patterns",                   365,    2  ));
-        experiments.add(new Experiment(  2,  "Solar Flares",                     264,    9  ));
-        experiments.add(new Experiment(  3,  "Solar Power",                      188,    6  ));
-        experiments.add(new Experiment(  4,  "Binary Stars",                     203,    8  ));
-        experiments.add(new Experiment(  5,  "Relativity",                       104,    8  ));
-        experiments.add(new Experiment(  6,  "Seed Viability",                    74,    7  ));
-        experiments.add(new Experiment(  7,  "Sun Spots",                         90,    2  ));
-        experiments.add(new Experiment(  8,  "Mice Tumors",                       65,    8  ));
-        experiments.add(new Experiment(  9,  "Microgravity Plant Growth",          75,    5  ));
-        experiments.add(new Experiment( 10,  "Micrometeorites",                  170,    9  ));
-        experiments.add(new Experiment( 11,  "Cosmic Rays",                       80,    7  ));
-        experiments.add(new Experiment( 12,  "Yeast Fermentation",               274,    4  ));
+        experiments.add(new Experiment(1,  "Cloud Patterns",                   36,    5));
+        experiments.add(new Experiment(2,  "Solar Flares",                     264,    9));
+        experiments.add(new Experiment(3,  "Solar Power",                      188,    6));
+        experiments.add(new Experiment(4,  "Binary Stars",                     203,    8));
+        experiments.add(new Experiment(5,  "Relativity",                       104,    8));
+        experiments.add(new Experiment(6,  "Seed Viability",                    7,    4));
+        experiments.add(new Experiment(7,  "Sun Spots",                         90,    2));
+        experiments.add(new Experiment(8,  "Mice Tumors",                       65,    8));
+        experiments.add(new Experiment(9,  "Microgravity Plant Growth",          75,    5));
+        experiments.add(new Experiment(10,  "Micrometeorites",                  170,    9));
+        experiments.add(new Experiment(11,  "Cosmic Rays",                       80,    7));
+        experiments.add(new Experiment(12,  "Yeast Fermentation",               27,    4));
 
         return experiments;
     }
