@@ -1,0 +1,21 @@
+# Contributions
+
+## Tayler Covington-Holler – Implementation Lead
+- Implemented greedy strategies
+- Helped structure program flow
+- Contributed to Main.java and core logic
+
+## Cameron Dickinson – Implementation Lead
+- Implemented brute-force algorithm
+- Handled subset generation and ranking
+- Assisted with integration
+
+## Christopher Salcedo Cardenas – Verification Lead
+- Verified correctness of outputs
+- Compared greedy results to optimal solution
+- Helped test edge cases
+
+## Maxwell Jardine – Communications Lead
+- Wrote full team report
+- Revised README and CONTRIBUTIONS
+- Organized deliverables for submission
