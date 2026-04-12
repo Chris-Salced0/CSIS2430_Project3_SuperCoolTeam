@@ -120,7 +120,46 @@ public class Main {
         System.out.println("           PART 4: DYNAMIC PROGRAMMING (Extra Credit)");
         System.out.println("---------------------------------------------------------------------");
 
-        /** TODO **/
+        /*
+         * PART 4 – Dynamic Programming (Pseudocode)
+         *
+         * Goal:
+         * Compute the optimal knapsack solution without brute force.
+         *
+         * Let:
+         * n = number of experiments
+         * W = maximum weight capacity (700)
+         *
+         * Create DP table:
+         * dp[n+1][W+1]
+         *
+         * Meaning:
+         * dp[i][w] = maximum rating using first i items with capacity w
+         *
+         * ------------------------------------------------------------
+         * ALGORITHM:
+         *
+         * FOR i FROM 0 TO n:
+         *     FOR w FROM 0 TO W:
+         *
+         *         IF i == 0 OR w == 0:
+         *             dp[i][w] = 0
+         *
+         *         ELSE IF experiments[i-1].weight <= w:
+         *             dp[i][w] = MAX(
+         *                 experiments[i-1].rating + dp[i-1][w - experiments[i-1].weight],
+         *                 dp[i-1][w]
+         *             )
+         *
+         *         ELSE:
+         *             dp[i][w] = dp[i-1][w]
+         *
+         * RESULT:
+         * dp[n][W] contains the optimal rating.
+         *
+         * BACKTRACKING (conceptual):
+         * Start at dp[n][W] and trace backward to determine selected items.
+         */ 
         
         
         
